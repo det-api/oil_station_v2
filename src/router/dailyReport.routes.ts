@@ -14,16 +14,16 @@ const dailyReportRoute = require("express").Router();
 
 dailyReportRoute.get(
   "/",
-  // validateToken,
-  // hasAnyPermit(["view"]),
+  validateToken,
+  hasAnyPermit(["view"]),
   getDailyReportHandler
 );
 dailyReportRoute.post(
   "/",
-  // validateToken,
-  // roleValidator("admin"),
-  // hasAnyPermit(["add"]),
-  // validateAll(dailyReportSchema),
+  validateToken,
+  roleValidator("admin"),
+  hasAnyPermit(["add"]),
+  validateAll(dailyReportSchema),
   addDailyReportHandler
 );
 dailyReportRoute.patch(

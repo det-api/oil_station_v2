@@ -54,18 +54,6 @@ export const getUser = async (query: FilterQuery<UserDocument>) => {
   }
 };
 
-export const updateUser = async (
-  query: FilterQuery<UserDocument>,
-  body: UpdateQuery<UserDocument>
-) => {
-  try {
-    await userModel.updateMany(query, body);
-    return await userModel.find(query).lean();
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
 export const deleteUser = async (query: FilterQuery<UserDocument>) => {
   try {
     return await userModel.deleteMany(query);

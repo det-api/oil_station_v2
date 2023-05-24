@@ -24,6 +24,7 @@ dailyReportSchema.pre('save', function (next) {
   next();
 });
 
+
 const dailyReportModel = mongoose.model<dailyReportDocument>(
   "dailyReport",
   dailyReportSchema

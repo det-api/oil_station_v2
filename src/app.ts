@@ -11,9 +11,8 @@ import stationDetailRoute from "./router/stationDetail.routes";
 import dailyReportRoute from "./router/dailyReport.routes";
 import detailSaleRoute from "./router/detailSale.routes";
 import { backup } from "./backup/backup";
-import { migrate } from "./migration/migrator";
+import {migrate} from "./migration/migrator"
 import { daily } from "./migration/dailyReport.migrate";
-import fuelBalanceRoute from "./router/fuelBalance.routes";
 
 const app = express();
 app.use(express.json());
@@ -27,13 +26,14 @@ const port = config.get<number>("port");
 const host = config.get<string>("host");
 const dbUrl = config.get<string>("dbUrl");
 
+
 //mongodb connection
 
 mongoose.connect(dbUrl);
 
 // request routes
 
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
+app.get("/api", (req: Request, res: Response, next: NextFunction) => {
   res.send("ok");
 });
 
@@ -48,7 +48,6 @@ app.use("/api/fuelIn", fuelInRoute);
 app.use("/api/station-detail", stationDetailRoute);
 app.use("/api/daily-report", dailyReportRoute);
 app.use("/api/detail-sale", detailSaleRoute);
-app.use("/api/fuelBalance", fuelBalanceRoute);
 
 //Error Routes
 
@@ -67,7 +66,7 @@ migrate();
 backup(dbUrl);
 
 //daily
-daily();
+daily()
 
 server.listen(port, () =>
   console.log(`server is running in  http://${host}:${port}`)

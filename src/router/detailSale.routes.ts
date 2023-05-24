@@ -13,8 +13,8 @@ const detailSaleRoute = require("express").Router();
 
 detailSaleRoute.get(
   "/",
-  // validateToken,
-  // hasAnyPermit(["view"]),
+  validateToken,
+  hasAnyPermit(["view"]),
   getDetailSaleHandler
 );
 

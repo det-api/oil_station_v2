@@ -5,7 +5,6 @@ import {
   getUserHandler,
   loginUserHandler,
   registerUserHandler,
-  updateUserHandler,
   userAddPermitHandler,
   userAddRoleHandler,
   userRemovePermitHandler,
@@ -23,9 +22,6 @@ userRoute.post("/login", loginUserHandler);
 
 //getuser
 userRoute.get("/", validateToken, getUserHandler);
-
-//updateUser
-userRoute.patch("/", validateToken, updateUserHandler);
 
 //delete each user
 userRoute.delete("/", validateToken, deleteUserHandler);

@@ -2,9 +2,7 @@ import { FilterQuery, UpdateQuery } from "mongoose";
 import dailyReportModel, {
   dailyReportDocument,
 } from "../model/dailyReport.model";
-import moment from "moment-timezone";
-
-const currentDate = moment().tz("Asia/Yangon").format("YYYY-MM-DD");
+import { string } from "zod";
 
 export const getDailyReport = async (
   query: FilterQuery<dailyReportDocument>
@@ -23,13 +21,9 @@ export const getDailyReport = async (
 export const addDailyReport = async (body: dailyReportDocument | {}) => {
   try {
     console.log("create one");
-    let result = await getDailyReport({});
-    let condition = result.find((ea) => ea.dateOfDay == currentDate);
-    if (condition) {
-      throw new Error("that date already exist");
-    }
     return await new dailyReportModel(body).save();
   } catch (e) {
+    console.log("e")
     throw new Error(e);
   }
 };
@@ -67,6 +61,5 @@ export const getDailyReportByDate = async (
   let result = await dailyReportModel.find({
     date: { $gte: `${d1}T00:00:00Z`, $lte: `${d2}T23:59:59Z` },
   });
-  console.log(result);
   return result;
 };

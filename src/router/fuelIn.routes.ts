@@ -10,7 +10,7 @@ import { validateAll, validateToken } from "../middleware/validator";
 import { allSchemaId, fuelInSchema } from "../schema/scheama";
 const fuelInRoute = require("express").Router();
 
-fuelInRoute.get("/", getFuelInHandler);
+fuelInRoute.get("/", validateToken, hasAnyPermit(["view"]), getFuelInHandler);
 fuelInRoute.post(
   "/",
   validateToken,
@@ -28,8 +28,7 @@ fuelInRoute.patch(
   updateFuelInHandler
 );
 fuelInRoute.delete(
-  "/", // validateToken,
-  // hasAnyPermit(["view"]),
+  "/",
   validateToken,
   roleValidator("admin"),
   hasAnyPermit(["delete"]),

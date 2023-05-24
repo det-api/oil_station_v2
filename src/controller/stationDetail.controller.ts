@@ -14,7 +14,6 @@ export const getStationDetailHandler = async (
 ) => {
   try {
     let result = await getStationDetail(req.query);
-
     fMsg(res, "StationDetail are here", result);
   } catch (e) {
     next(new Error(e));

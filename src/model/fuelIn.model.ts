@@ -18,7 +18,7 @@ const fuelInSchema = new Schema({
   stationId: {
     type: Schema.Types.ObjectId,
     ref: "stationDetail",
-    default: "6449f5a9a1808c9679bbed27",
+    default: "6464e9f1c45b82216ab1db6b",
   },
   tankNo: { type: String, required: true },
   tankMaxCap: { type: String, required: true },

@@ -1,5 +1,8 @@
 import mongoose, { Schema } from "mongoose";
+import { getDailyReportByDate } from "../service/dailyReport.service";
 import moment from "moment-timezone";
+
+const localTime = moment().toDate();
 
 export interface detailSaleDocument extends mongoose.Document {
   stationDetailId: string;
@@ -13,16 +16,11 @@ export interface detailSaleDocument extends mongoose.Document {
   saleLiter: number;
   totalPrice: number;
   totalizer_liter: number;
-  nozzles: string[];
   createAt: Date;
 }
 
 const detailSaleSchema = new Schema({
-  stationDetailId: {
-    type: Schema.Types.ObjectId,
-    require: true,
-    ref: "stationDetail",
-  },
+  stationDetailId: { type: Schema.Types.ObjectId,require :true, ref: "stationDetail" },
   vocono: { type: String, required: true, unique: true },
   carNo: { type: String, default: null }, //manual
   vehicleType: { type: String, default: "car" }, //manual
@@ -32,15 +30,15 @@ const detailSaleSchema = new Schema({
   saleLiter: { type: Number, default: 0 },
   totalPrice: { type: Number, default: 0 },
   totalizer_liter: { type: Number, default: 0 },
-  dailyReportDate: {
-    type: String,
-    default: new Date().toLocaleDateString(`fr-CA`),
-  },
+  dailyReportDate : {type : String ,default: new Date().toLocaleDateString(`fr-CA`)},
   createAt: { type: Date, default: new Date() },
 });
 
 detailSaleSchema.pre("save", function (next) {
+  console.log("gg");
+  console.log(this.fuelType, this.salePrice);
   if (this.fuelType == "001-Octane Ron(92)" && this.salePrice < 5000) {
+    // console.log("hh");
     this.vehicleType = "Cycle";
   }
 
@@ -48,7 +46,6 @@ detailSaleSchema.pre("save", function (next) {
   this.dailyReportDate = currentDate;
   next();
 });
-
 const detailSaleModel = mongoose.model<detailSaleDocument>(
   "detailSale",
   detailSaleSchema

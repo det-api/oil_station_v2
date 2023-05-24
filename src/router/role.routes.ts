@@ -11,10 +11,7 @@ import { roleSchema } from "../utils/schema";
 
 const roleRoute = require("express").Router();
 
-roleRoute.get("/", 
-validateToken, 
-roleValidator("admin"),
-getRoleHandler);
+roleRoute.get("/", validateToken, roleValidator("admin"), getRoleHandler);
 
 roleRoute.post(
   "/",
