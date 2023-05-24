@@ -7,7 +7,6 @@ import {
   deleteDailyReport,
   getDailyReportByDate,
 } from "../service/dailyReport.service";
-import { getOneDailyPrice } from "../service/dailyPrice.service";
 import {
   // detailSaleByDate,
   getDetailSale,
@@ -41,7 +40,7 @@ export const getDailyReportHandler = async (
         );
         ea["PHSD"] = await getDetailSaleByFuelType(
           ea["dateOfDay"],
-          "005-Premium Diesel"
+          "005-Premium Diesel005-Premium Diesel"
         );
       })
     );
@@ -144,7 +143,6 @@ export const getDailyReportByDateHandler = async (
   try {
     let sDate = req.query.sDate;
     let eDate = req.query.eDate;
-    console.log(eDate);
     let result;
     if (!sDate) {
       throw new Error("you need date");
@@ -153,11 +151,9 @@ export const getDailyReportByDateHandler = async (
       eDate = new Date().toLocaleDateString(`fr-CA`);
     }
     if (typeof sDate === "string" && typeof eDate === "string") {
-      console.log("wk");
       //if date error ? you should use split with T or be sure detail Id
       const startDate = new Date(sDate).toLocaleDateString(`fr-CA`);
       const endDate = new Date(eDate).toLocaleDateString(`fr-CA`);
-      console.log(startDate, endDate);
 
       result = await getDailyReportByDate(startDate, endDate);
     }

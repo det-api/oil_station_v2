@@ -39,7 +39,6 @@ export const addDetailSaleHandler = async (
     if (!result) {
       throw new Error("error in detai");
     }
-    console.log(result.nozzleNo);
     await calcFuelBalance(
       { fuelType: result.fuelType, createAt: result.dailyReportDate },
       { liter: result.saleLiter },
